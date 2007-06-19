@@ -1,5 +1,5 @@
 %define name gthumb
-%define version 2.10.3
+%define version 2.10.4
 %define libname %mklibname %name %version
 
 Summary:	An image viewer and browser for GNOME
@@ -29,6 +29,7 @@ BuildRequires:  intltool
 BuildRequires:  perl-XML-Parser
 BuildRequires:  desktop-file-utils
 BuildRequires:  libxxf86vm-devel
+BuildRequires:  libxtst-devel
 Requires: jpeg-progs
 Requires(post): scrollkeeper >= 0.3 desktop-file-utils
 Requires(postun): scrollkeeper >= 0.3 desktop-file-utils
