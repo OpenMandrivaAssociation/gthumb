@@ -133,7 +133,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_datadir}/omf/%name
 %{_datadir}/omf/%name/*-C.omf
 %{_datadir}/icons/hicolor/48x48/apps/gthumb.png
-%{_datadir}/man/man1/*
+%{_mandir}/man1/*
 %{_menudir}/%{name}
 %{_iconsdir}/%{name}.png
 %{_liconsdir}/%{name}.png
