@@ -1,5 +1,5 @@
 %define name gthumb
-%define version 2.10.5
+%define version 2.10.6
 %define libname %mklibname %name %version
 
 Summary:	An image viewer and browser for GNOME
@@ -130,6 +130,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/applications/*
 %{_datadir}/gthumb
 %_libdir/libgthumb.so
+%_libdir/bonobo/servers/GNOME_GThumb.server
 %dir %{_datadir}/omf/%name
 %{_datadir}/omf/%name/*-C.omf
 %{_datadir}/icons/hicolor/48x48/apps/gthumb.png
