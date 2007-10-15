@@ -1,5 +1,5 @@
 %define name gthumb
-%define version 2.10.6
+%define version 2.10.7
 %define libname %mklibname %name %version
 
 Summary:	An image viewer and browser for GNOME
