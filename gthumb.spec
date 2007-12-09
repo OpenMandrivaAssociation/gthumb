@@ -5,7 +5,7 @@
 Summary:	An image viewer and browser for GNOME
 Name:		%name
 Version: %version
-Release: %mkrel 1
+Release: %mkrel 2
 License:	GPL
 URL:		http://gthumb.sourceforge.net/
 Group:		Graphics
@@ -27,7 +27,6 @@ BuildRequires:	bison
 BuildRequires:	ImageMagick
 BuildRequires:  intltool
 BuildRequires:  perl-XML-Parser
-BuildRequires:  desktop-file-utils
 BuildRequires:  libxxf86vm-devel
 BuildRequires:  libxtst-devel
 Requires: jpeg-progs
@@ -68,30 +67,11 @@ for omf in %buildroot%_datadir/omf/%name/%name-??*.omf;do
 echo "%lang($(basename $omf|sed -e s/%name-// -e s/.omf//)) $(echo $omf|sed -e s!%buildroot!!)" >> %name-2.0.lang
 done
 
-
-
 # icons
 mkdir -p %{buildroot}/%{_iconsdir} %{buildroot}%{_miconsdir}
 install -m 644 -D       data/gthumb.png %{buildroot}%{_liconsdir}/%{name}.png
 convert -geometry 32x32 data/gthumb.png %{buildroot}%{_iconsdir}/%{name}.png
 convert -geometry 16x16 data/gthumb.png %{buildroot}%{_miconsdir}/%{name}.png
-
-install -d %buildroot/%_menudir
-cat > %buildroot/%{_menudir}/%name << EOF
-?package(%{name}): \
-command="%{_bindir}/%{name}" \
-icon="%name.png" \
-needs="X11" \
-section="Multimedia/Graphics" \
-title="GThumb" \
-longtitle="View and organize your images" \
-startup_notify="true" xdg="true"
-EOF
-desktop-file-install --vendor="" \
-  --remove-category="Application" \
-  --add-category="X-MandrivaLinux-Multimedia-Graphics" \
-  --dir $RPM_BUILD_ROOT%{_datadir}/applications $RPM_BUILD_ROOT%{_datadir}/applications/*
-
 
 # remove unpackaged files 
 rm -rf $RPM_BUILD_ROOT%{_libdir}/gthumb/modules/*.{la,a} \
@@ -135,9 +115,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/omf/%name/*-C.omf
 %{_datadir}/icons/hicolor/48x48/apps/gthumb.png
 %{_mandir}/man1/*
-%{_menudir}/%{name}
 %{_iconsdir}/%{name}.png
 %{_liconsdir}/%{name}.png
 %{_miconsdir}/%{name}.png
-
-
