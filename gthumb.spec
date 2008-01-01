@@ -1,11 +1,11 @@
 %define name gthumb
-%define version 2.10.7
+%define version 2.10.8
 %define libname %mklibname %name %version
 
 Summary:	An image viewer and browser for GNOME
 Name:		%name
 Version: %version
-Release: %mkrel 2
+Release: %mkrel 1
 License:	GPL
 URL:		http://gthumb.sourceforge.net/
 Group:		Graphics
