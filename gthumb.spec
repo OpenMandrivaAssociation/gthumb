@@ -10,6 +10,7 @@ License:	GPL
 URL:		http://gthumb.sourceforge.net/
 Group:		Graphics
 Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/%name/%{name}-%{version}.tar.bz2
+BuildRoot:	%{_tmppath}/%{name}-%{version}-root
 BuildRequires:	libgnomeprintui-devel
 BuildRequires:  libgnomeui2-devel
 BuildRequires:  scrollkeeper
