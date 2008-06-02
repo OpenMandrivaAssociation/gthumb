@@ -77,7 +77,7 @@ convert -geometry 16x16 data/gthumb.png %{buildroot}%{_miconsdir}/%{name}.png
 rm -rf $RPM_BUILD_ROOT%{_libdir}/gthumb/modules/*.{la,a} \
  $RPM_BUILD_ROOT%{_libdir}/gthumb/*.{la,a} \
  %buildroot%_libdir/*.{la,a} \
- $RPM_BUILD_ROOT%{_localstatedir}/scrollkeeper
+ $RPM_BUILD_ROOT%{_localstatedir}/lib/scrollkeeper
 
 %post
 %post_install_gconf_schemas %name
