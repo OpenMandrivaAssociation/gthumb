@@ -79,21 +79,25 @@ rm -rf $RPM_BUILD_ROOT%{_libdir}/gthumb/modules/*.{la,a} \
  %buildroot%_libdir/*.{la,a} \
  $RPM_BUILD_ROOT%{_localstatedir}/lib/scrollkeeper
 
+%if %mdkversion < 200900
 %post
 %post_install_gconf_schemas %name
 %update_scrollkeeper
 %update_menus
 %update_desktop_database
 %update_icon_cache hicolor
+%endif
 
 %preun
 %preun_uninstall_gconf_schemas %name
 
+%if %mdkversion < 200900
 %postun
 %clean_scrollkeeper
 %clean_menus
 %clean_desktop_database
 %clean_icon_cache hicolor
+%endif
 
 %if %mdkversion < 200900
 %post -n %libname -p /sbin/ldconfig
