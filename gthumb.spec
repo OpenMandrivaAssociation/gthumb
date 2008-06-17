@@ -39,16 +39,6 @@ It also lets you view single files (including GIF animations), add comments to
 images, organize images in catalogs, print images, view slideshows, set your
 desktop background, and more. 
 
-%package -n %libname
-Group:System/Libraries
-Summary: Shared library part of gThumb
-
-%description -n %libname
-gThumb lets you browse your hard disk, showing you thumbnails of image files. 
-It also lets you view single files (including GIF animations), add comments to
-images, organize images in catalogs, print images, view slideshows, set your
-desktop background, and more. 
-
 %prep
 %setup -q
 
