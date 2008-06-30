@@ -6,10 +6,11 @@ Summary:	An image viewer and browser for GNOME
 Name:		%name
 Version: %version
 Release: %mkrel 1
-License:	GPL
+License:	GPLv2+
 URL:		http://gthumb.sourceforge.net/
 Group:		Graphics
 Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/%name/%{name}-%{version}.tar.bz2
+Patch: gthumb-2.10.8-linking.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-root
 BuildRequires:	libgnomeprintui-devel
 BuildRequires:  libgnomeui2-devel
@@ -26,7 +27,6 @@ BuildRequires:	flex
 BuildRequires:	bison
 BuildRequires:	ImageMagick
 BuildRequires:  intltool
-BuildRequires:  perl-XML-Parser
 BuildRequires:  libxxf86vm-devel
 BuildRequires:  libxtst-devel
 Requires: jpeg-progs
@@ -41,6 +41,10 @@ desktop background, and more.
 
 %prep
 %setup -q
+%patch -p1
+aclocal
+autoconf
+automake
 
 %build
 %configure2_5x --disable-scrollkeeper
