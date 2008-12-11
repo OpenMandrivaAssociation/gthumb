@@ -24,7 +24,7 @@ BuildRequires:	libiptcdata-devel
 BuildRequires:	tiff-devel
 BuildRequires:	flex
 BuildRequires:	bison
-BuildRequires:	ImageMagick
+BuildRequires:	imagemagick
 BuildRequires:  intltool
 BuildRequires:  libxxf86vm-devel
 BuildRequires:  libxtst-devel
