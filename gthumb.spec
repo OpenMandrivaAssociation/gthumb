@@ -1,5 +1,5 @@
 %define name gthumb
-%define version 2.10.10
+%define version 2.10.11
 %define libname %mklibname %name %version
 
 Summary:	An image viewer and browser for GNOME
@@ -10,6 +10,7 @@ License:	GPLv2+
 URL:		http://gthumb.sourceforge.net/
 Group:		Graphics
 Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/%name/%{name}-%{version}.tar.bz2
+Patch: gthumb-2.10.11-format-strings.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-root
 BuildRequires:	libgnomeprintui-devel
 BuildRequires:  libgnomeui2-devel
@@ -40,6 +41,7 @@ desktop background, and more.
 
 %prep
 %setup -q
+%patch -p1
 
 %build
 %configure2_5x --disable-scrollkeeper
