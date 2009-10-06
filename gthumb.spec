@@ -5,14 +5,17 @@
 Summary:	An image viewer and browser for GNOME
 Name:		%name
 Version: %version
-Release: %mkrel 2
+Release: %mkrel 3
 License:	GPLv2+
 URL:		http://gthumb.sourceforge.net/
 Group:		Graphics
 Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/%name/%{name}-%{version}.tar.bz2
-Patch: gthumb-2.10.11-format-strings.patch
+Source1:	gthumb-import
+Source2:	gthumb-import.desktop
+Patch0: gthumb-2.10.11-format-strings.patch
+# (fc) 2.10.11-3mdv fix importer default directory (GNOME bug #577042) (GIT)
+Patch1:		gthumb-2.10.11-importerdir.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-root
-BuildRequires:	libgnomeprintui-devel
 BuildRequires:  libgnomeui2-devel
 BuildRequires:  scrollkeeper
 BuildRequires:  gnome-doc-utils
@@ -29,7 +32,6 @@ BuildRequires:	imagemagick
 BuildRequires:  intltool
 BuildRequires:  libxxf86vm-devel
 BuildRequires:  libxtst-devel
-Requires: jpeg-progs
 Requires(post): scrollkeeper >= 0.3 desktop-file-utils
 Requires(postun): scrollkeeper >= 0.3 desktop-file-utils
 
@@ -41,7 +43,8 @@ desktop background, and more.
 
 %prep
 %setup -q
-%patch -p1
+%patch0 -p1 -b .string-fmt
+%patch1 -p1 -b .importerdir
 
 %build
 %configure2_5x --disable-scrollkeeper
@@ -52,6 +55,9 @@ desktop background, and more.
 rm -rf $RPM_BUILD_ROOT
 
 GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1 %makeinstall_std
+
+install -p -m 755 %SOURCE1 $RPM_BUILD_ROOT/%{_bindir}
+install -p -m 644 %SOURCE2 $RPM_BUILD_ROOT/%{_datadir}/applications
 
 %find_lang %{name}-2.0 --with-gnome --all-name
 for omf in %buildroot%_datadir/omf/%name/%name-??*.omf;do 
