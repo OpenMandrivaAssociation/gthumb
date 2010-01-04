@@ -1,37 +1,26 @@
 %define name gthumb
-%define version 2.10.11
+%define version 2.11.1
 %define libname %mklibname %name %version
+%define api 2.0
 
 Summary:	An image viewer and browser for GNOME
 Name:		%name
 Version: %version
-Release: %mkrel 3
+Release: %mkrel 1
 License:	GPLv2+
 URL:		http://gthumb.sourceforge.net/
 Group:		Graphics
 Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/%name/%{name}-%{version}.tar.bz2
-Source1:	gthumb-import
-Source2:	gthumb-import.desktop
-Patch0: gthumb-2.10.11-format-strings.patch
-# (fc) 2.10.11-3mdv fix importer default directory (GNOME bug #577042) (GIT)
-Patch1:		gthumb-2.10.11-importerdir.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-root
-BuildRequires:  libgnomeui2-devel
 BuildRequires:  scrollkeeper
 BuildRequires:  gnome-doc-utils
-BuildRequires:  libexif-devel >= 0.5.12
-BuildRequires:  png-devel
-BuildRequires:  libglade2.0-devel
-BuildRequires:	gphoto2-devel >= 2.1.3
-BuildRequires:	libopenraw-devel
-BuildRequires:	libiptcdata-devel
+BuildRequires:	gtk+2-devel
+BuildRequires:	libjpeg-devel
 BuildRequires:	tiff-devel
+BuildRequires:	unique-devel
 BuildRequires:	flex
 BuildRequires:	bison
-BuildRequires:	imagemagick
 BuildRequires:  intltool
-BuildRequires:  libxxf86vm-devel
-BuildRequires:  libxtst-devel
 Requires(post): scrollkeeper >= 0.3 desktop-file-utils
 Requires(postun): scrollkeeper >= 0.3 desktop-file-utils
 
@@ -41,10 +30,19 @@ It also lets you view single files (including GIF animations), add comments to
 images, organize images in catalogs, print images, view slideshows, set your
 desktop background, and more. 
 
+%package devel
+Summary: Header files for building %name extensions
+Group: Development/C
+
+%description devel
+gThumb lets you browse your hard disk, showing you thumbnails of image files. 
+It also lets you view single files (including GIF animations), add comments to
+images, organize images in catalogs, print images, view slideshows, set your
+desktop background, and more. 
+
+
 %prep
 %setup -q
-%patch0 -p1 -b .string-fmt
-%patch1 -p1 -b .importerdir
 
 %build
 %configure2_5x --disable-scrollkeeper
@@ -56,25 +54,13 @@ rm -rf $RPM_BUILD_ROOT
 
 GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1 %makeinstall_std
 
-install -p -m 755 %SOURCE1 $RPM_BUILD_ROOT/%{_bindir}
-install -p -m 644 %SOURCE2 $RPM_BUILD_ROOT/%{_datadir}/applications
-
-%find_lang %{name}-2.0 --with-gnome --all-name
+%find_lang %{name}-%{api} --with-gnome --all-name
 for omf in %buildroot%_datadir/omf/%name/%name-??*.omf;do 
-echo "%lang($(basename $omf|sed -e s/%name-// -e s/.omf//)) $(echo $omf|sed -e s!%buildroot!!)" >> %name-2.0.lang
+echo "%lang($(basename $omf|sed -e s/%name-// -e s/.omf//)) $(echo $omf|sed -e s!%buildroot!!)" >> %name-%{api}.lang
 done
 
-# icons
-mkdir -p %{buildroot}/%{_iconsdir} %{buildroot}%{_miconsdir}
-install -m 644 -D       data/gthumb.png %{buildroot}%{_liconsdir}/%{name}.png
-convert -geometry 32x32 data/gthumb.png %{buildroot}%{_iconsdir}/%{name}.png
-convert -geometry 16x16 data/gthumb.png %{buildroot}%{_miconsdir}/%{name}.png
-
 # remove unpackaged files 
-rm -rf $RPM_BUILD_ROOT%{_libdir}/gthumb/modules/*.{la,a} \
- $RPM_BUILD_ROOT%{_libdir}/gthumb/*.{la,a} \
- %buildroot%_libdir/*.{la,a} \
- $RPM_BUILD_ROOT%{_localstatedir}/lib/scrollkeeper
+rm -rf $RPM_BUILD_ROOT%{_libdir}/gthumb-%{api}/*/*.{la,a}
 
 %if %mdkversion < 200900
 %post
@@ -106,20 +92,23 @@ rm -rf $RPM_BUILD_ROOT%{_libdir}/gthumb/modules/*.{la,a} \
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files -f %{name}-2.0.lang
+%files -f %{name}-%{api}.lang
 %defattr(-,root,root)
 %doc AUTHORS NEWS README COPYING
 %{_sysconfdir}/gconf/schemas/*
 %{_bindir}/*
-%{_libdir}/gthumb
 %{_datadir}/applications/*
 %{_datadir}/gthumb
-%_libdir/libgthumb.so
-%_libdir/bonobo/servers/GNOME_GThumb.server
+%_datadir/%name-%{api}/
+%_datadir/icons/hicolor/*/apps/gthumb.*
 %dir %{_datadir}/omf/%name
 %{_datadir}/omf/%name/*-C.omf
-%{_datadir}/icons/hicolor/48x48/apps/gthumb.png
-%{_mandir}/man1/*
-%{_iconsdir}/%{name}.png
-%{_liconsdir}/%{name}.png
-%{_miconsdir}/%{name}.png
+%dir %_libdir/%name-%{api}/
+%dir %_libdir/%name-%{api}/extensions/
+%_libdir/%name-%{api}/extensions/*.extension
+%_libdir/%name-%{api}/extensions/*.so
+
+%files devel
+%defattr(-,root,root)
+%doc ChangeLog
+%_includedir/%name-%{api}/
