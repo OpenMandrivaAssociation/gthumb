@@ -15,9 +15,14 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-root
 BuildRequires:  scrollkeeper
 BuildRequires:  gnome-doc-utils
 BuildRequires:	gtk+2-devel
+BuildRequires:	libGConf2-devel
+BuildRequires:	clutter-gtk-devel
+BuildRequires:	libgstreamer-plugins-base-devel
+BuildRequires:	libexiv-devel
 BuildRequires:	libjpeg-devel
+BuildRequires:	libopenraw-devel >= 0.0.8
 BuildRequires:	tiff-devel
-BuildRequires:	unique-devel
+BuildRequires:	unique-devel >= 1.1.2
 BuildRequires:	flex
 BuildRequires:	bison
 BuildRequires:  intltool
@@ -45,7 +50,7 @@ desktop background, and more.
 %setup -q
 
 %build
-%configure2_5x --disable-scrollkeeper
+%configure2_5x --disable-scrollkeeper --enable-libopenraw
 
 %make
 
