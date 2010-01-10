@@ -6,7 +6,7 @@
 Summary:	An image viewer and browser for GNOME
 Name:		%name
 Version: %version
-Release: %mkrel 1
+Release: %mkrel 2
 License:	GPLv2+
 URL:		http://gthumb.sourceforge.net/
 Group:		Graphics
