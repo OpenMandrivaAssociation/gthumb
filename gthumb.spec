@@ -6,12 +6,14 @@
 Summary:	An image viewer and browser for GNOME
 Name:		%name
 Version: %version
-Release: %mkrel 3
+Release: %mkrel 4
 License:	GPLv2+
 URL:		http://gthumb.sourceforge.net/
 Group:		Graphics
 Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/%name/%{name}-%{version}.tar.bz2
 Patch0:		gthumb-2.11.1-newer-gtk.patch
+# (fc) 2.11.1-4mdv fix plugin linking
+Patch1:		gthumb-2.11.1-fixlinking.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-root
 BuildRequires:  scrollkeeper
 BuildRequires:  gnome-doc-utils
@@ -50,6 +52,10 @@ desktop background, and more.
 %prep
 %setup -q
 %patch0 -p0 -b .gtk
+%patch1 -p1 -b .fixlinking
+
+#needed by patch1
+autoreconf
 
 %build
 %configure2_5x --disable-scrollkeeper --enable-libopenraw
