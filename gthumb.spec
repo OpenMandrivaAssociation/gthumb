@@ -29,6 +29,7 @@ BuildRequires:	unique-devel >= 1.1.2
 BuildRequires:	flex
 BuildRequires:	bison
 BuildRequires:  intltool
+BuildRequires:	gnome-common
 Requires(post): scrollkeeper >= 0.3 desktop-file-utils
 Requires(postun): scrollkeeper >= 0.3 desktop-file-utils
 
