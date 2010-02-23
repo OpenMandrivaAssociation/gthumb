@@ -1,27 +1,28 @@
 %define name gthumb
-%define version 2.11.1
+%define version 2.11.2
 %define libname %mklibname %name %version
 %define api 2.0
+%define api2 2.12
 
 Summary:	An image viewer and browser for GNOME
 Name:		%name
 Version: %version
-Release: %mkrel 4
+Release: %mkrel 1
 License:	GPLv2+
 URL:		http://gthumb.sourceforge.net/
 Group:		Graphics
 Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/%name/%{name}-%{version}.tar.bz2
 Patch0:		gthumb-2.11.1-newer-gtk.patch
-# (fc) 2.11.1-4mdv fix plugin linking
-Patch1:		gthumb-2.11.1-fixlinking.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-root
 BuildRequires:  scrollkeeper
 BuildRequires:  gnome-doc-utils
 BuildRequires:	gtk+2-devel
 BuildRequires:	libGConf2-devel
+BuildRequires:	libgnome-keyring-devel
 BuildRequires:	clutter-gtk-devel
 BuildRequires:	libgstreamer-plugins-base-devel
 BuildRequires:	libexiv-devel
+BuildRequires:	libsoup-devel
 BuildRequires:	libjpeg-devel
 BuildRequires:	libopenraw-devel >= 0.0.8
 BuildRequires:	tiff-devel
@@ -53,10 +54,7 @@ desktop background, and more.
 %prep
 %setup -q
 %patch0 -p0 -b .gtk
-%patch1 -p1 -b .fixlinking
-
-#needed by patch1
-autoreconf
+rm -f extensions/importer/gth-import-enum-types.[ch]
 
 %build
 %configure2_5x --disable-scrollkeeper --enable-libopenraw
@@ -74,7 +72,7 @@ echo "%lang($(basename $omf|sed -e s/%name-// -e s/.omf//)) $(echo $omf|sed -e s
 done
 
 # remove unpackaged files 
-rm -rf $RPM_BUILD_ROOT%{_libdir}/gthumb-%{api}/*/*.{la,a}
+rm -rf $RPM_BUILD_ROOT%{_libdir}/gthumb/*/*.{la,a}
 
 %if %mdkversion < 200900
 %post
@@ -106,16 +104,17 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/*
 %{_datadir}/applications/*
 %{_datadir}/gthumb
-%_datadir/%name-%{api}/
+#%_datadir/%name-%{api}/
 %_datadir/icons/hicolor/*/apps/gthumb.*
 %dir %{_datadir}/omf/%name
 %{_datadir}/omf/%name/*-C.omf
-%dir %_libdir/%name-%{api}/
-%dir %_libdir/%name-%{api}/extensions/
-%_libdir/%name-%{api}/extensions/*.extension
-%_libdir/%name-%{api}/extensions/*.so
+%dir %_libdir/%name/
+%dir %_libdir/%name/extensions/
+%_libdir/%name/extensions/*.extension
+%_libdir/%name/extensions/*.so
 
 %files devel
 %defattr(-,root,root)
 %doc ChangeLog
-%_includedir/%name-%{api}/
+%_includedir/%name-%{api2}/
+%_libdir/pkgconfig/gthumb-%{api2}.pc
