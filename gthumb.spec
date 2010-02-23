@@ -1,5 +1,5 @@
 %define name gthumb
-%define version 2.11.2
+%define version 2.11.2.1
 %define libname %mklibname %name %version
 %define api 2.0
 %define api2 2.12
@@ -54,7 +54,6 @@ desktop background, and more.
 %prep
 %setup -q
 %patch0 -p0 -b .gtk
-rm -f extensions/importer/gth-import-enum-types.[ch]
 
 %build
 %configure2_5x --disable-scrollkeeper --enable-libopenraw
