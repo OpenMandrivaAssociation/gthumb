@@ -1,5 +1,5 @@
 %define name gthumb
-%define version 2.11.3
+%define version 2.11.4
 %define libname %mklibname %name %version
 %define api 2.0
 %define api2 2.12
@@ -7,7 +7,7 @@
 Summary:	An image viewer and browser for GNOME
 Name:		%name
 Version: %version
-Release: %mkrel 2
+Release: %mkrel 1
 License:	GPLv2+
 URL:		http://gthumb.sourceforge.net/
 Group:		Graphics
@@ -65,9 +65,9 @@ rm -rf $RPM_BUILD_ROOT
 GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1 %makeinstall_std
 
 %find_lang %{name}-%{api} --with-gnome --all-name
-for omf in %buildroot%_datadir/omf/%name/%name-??*.omf;do 
-echo "%lang($(basename $omf|sed -e s/%name-// -e s/.omf//)) $(echo $omf|sed -e s!%buildroot!!)" >> %name-%{api}.lang
-done
+#for omf in %buildroot%_datadir/omf/%name/%name-??*.omf;do 
+#echo "%lang($(basename $omf|sed -e s/%name-// -e s/.omf//)) $(echo $omf|sed -e s!%buildroot!!)" >> %name-%{api}.lang
+#done
 
 # remove unpackaged files 
 rm -rf $RPM_BUILD_ROOT%{_libdir}/gthumb/*/*.{la,a}
@@ -104,8 +104,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gthumb
 #%_datadir/%name-%{api}/
 %_datadir/icons/hicolor/*/apps/gthumb.*
-%dir %{_datadir}/omf/%name
-%{_datadir}/omf/%name/*-C.omf
+#%dir %{_datadir}/omf/%name
+#%{_datadir}/omf/%name/*-C.omf
 %dir %_libdir/%name/
 %dir %_libdir/%name/extensions/
 %_libdir/%name/extensions/*.extension
