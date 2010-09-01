@@ -1,3 +1,12 @@
+%if %mandriva_branch == Cooker
+# Cooker
+%define release %mkrel 1
+%else
+# Old distros
+%define subrel 1
+%define release %mkrel 0
+%endif
+
 %define name gthumb
 %define version 2.11.91
 %define libname %mklibname %name %version
@@ -7,7 +16,7 @@
 Summary:	An image viewer and browser for GNOME
 Name:		%name
 Version: %version
-Release: %mkrel 1
+Release: %release
 License:	GPLv2+
 URL:		http://gthumb.sourceforge.net/
 Group:		Graphics
