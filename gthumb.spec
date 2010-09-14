@@ -8,7 +8,7 @@
 %endif
 
 %define name gthumb
-%define version 2.11.91
+%define version 2.11.92
 %define libname %mklibname %name %version
 %define api 2.0
 %define api2 2.12
