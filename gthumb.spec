@@ -8,7 +8,7 @@
 %endif
 
 %define name gthumb
-%define version 2.11.92
+%define version 2.12.0
 %define libname %mklibname %name %version
 %define api 2.0
 %define api2 2.12
@@ -125,3 +125,4 @@ rm -rf $RPM_BUILD_ROOT
 %doc ChangeLog
 %_includedir/%name-%{api2}/
 %_libdir/pkgconfig/gthumb-%{api2}.pc
+%_datadir/aclocal/gthumb.m4
