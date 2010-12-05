@@ -1,6 +1,6 @@
 %if %mandriva_branch == Cooker
 # Cooker
-%define release %mkrel 1
+%define release %mkrel 2
 %else
 # Old distros
 %define subrel 1
@@ -29,7 +29,8 @@ BuildRequires:	libGConf2-devel
 BuildRequires:	libgnome-keyring-devel
 BuildRequires:	clutter-gtk-devel
 BuildRequires:	libgstreamer-plugins-base-devel
-BuildRequires:	libexiv-devel
+# fwang: 2.12.1 does not exiv2 >= 0.21
+# BuildRequires:	libexiv-devel
 BuildRequires:	libsoup-devel
 BuildRequires:	libjpeg-devel
 BuildRequires:	libopenraw-devel >= 0.0.8
