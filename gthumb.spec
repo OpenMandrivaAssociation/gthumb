@@ -1,6 +1,6 @@
 %if %mandriva_branch == Cooker
 # Cooker
-%define release %mkrel 2
+%define release %mkrel 3
 %else
 # Old distros
 %define subrel 1
@@ -21,6 +21,7 @@ License:	GPLv2+
 URL:		http://gthumb.sourceforge.net/
 Group:		Graphics
 Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/%name/%{name}-%{version}.tar.bz2
+Patch0:		gthumb-2.12.1-exiv2-0.21.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-root
 BuildRequires:  scrollkeeper
 BuildRequires:  gnome-doc-utils
@@ -29,8 +30,7 @@ BuildRequires:	libGConf2-devel
 BuildRequires:	libgnome-keyring-devel
 BuildRequires:	clutter-gtk-devel
 BuildRequires:	libgstreamer-plugins-base-devel
-# fwang: 2.12.1 does not exiv2 >= 0.21
-# BuildRequires:	libexiv-devel
+BuildRequires:	libexiv-devel
 BuildRequires:	libsoup-devel
 BuildRequires:	libjpeg-devel
 BuildRequires:	libopenraw-devel >= 0.0.8
@@ -63,6 +63,7 @@ desktop background, and more.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %configure2_5x --disable-scrollkeeper --enable-libopenraw
