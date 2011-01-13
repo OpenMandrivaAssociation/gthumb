@@ -1,6 +1,6 @@
 %if %mandriva_branch == Cooker
 # Cooker
-%define release %mkrel 4
+%define release %mkrel 1
 %else
 # Old distros
 %define subrel 1
@@ -8,7 +8,7 @@
 %endif
 
 %define name gthumb
-%define version 2.12.1
+%define version 2.12.2
 %define libname %mklibname %name %version
 %define api 2.0
 %define api2 2.12
@@ -21,7 +21,6 @@ License:	GPLv2+
 URL:		http://gthumb.sourceforge.net/
 Group:		Graphics
 Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/%name/%{name}-%{version}.tar.bz2
-Patch0:		gthumb-2.12.1-exiv2-0.21.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-root
 BuildRequires:  scrollkeeper
 BuildRequires:  gnome-doc-utils
@@ -63,7 +62,6 @@ desktop background, and more.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 %configure2_5x --disable-scrollkeeper --enable-libopenraw
