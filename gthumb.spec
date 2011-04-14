@@ -32,6 +32,7 @@ BuildRequires:	libgstreamer-plugins-base-devel
 BuildRequires:	libexiv-devel
 BuildRequires:	libsoup-devel
 BuildRequires:	libjpeg-devel
+BuildRequires:	libsm-devel
 BuildRequires:	libopenraw-devel >= 0.0.8
 BuildRequires:	tiff-devel
 BuildRequires:	unique-devel >= 1.1.2
