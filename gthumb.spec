@@ -8,7 +8,7 @@
 %endif
 
 %define name gthumb
-%define version 2.12.2
+%define version 2.12.3
 %define libname %mklibname %name %version
 %define api 2.0
 %define api2 2.12
@@ -25,7 +25,7 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-root
 BuildRequires:  scrollkeeper
 BuildRequires:  gnome-doc-utils
 BuildRequires:	gtk+2-devel
-BuildRequires:	libGConf2-devel
+BuildRequires:	libGConf2-devel GConf2
 BuildRequires:	libgnome-keyring-devel
 BuildRequires:	clutter-gtk-devel
 BuildRequires:	libgstreamer-plugins-base-devel
@@ -39,9 +39,6 @@ BuildRequires:	brasero-devel
 BuildRequires:	flex
 BuildRequires:	bison
 BuildRequires:  intltool
-BuildRequires:	gnome-common
-Requires(post): scrollkeeper >= 0.3 desktop-file-utils
-Requires(postun): scrollkeeper >= 0.3 desktop-file-utils
 
 %description
 gThumb lets you browse your hard disk, showing you thumbnails of image files. 
