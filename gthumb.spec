@@ -67,7 +67,7 @@ desktop background, and more.
 %make
 
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1 %makeinstall_std
 
@@ -77,7 +77,7 @@ GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1 %makeinstall_std
 #done
 
 # remove unpackaged files 
-rm -rf $RPM_BUILD_ROOT%{_libdir}/gthumb/*/*.{la,a}
+rm -rf %{buildroot}%{_libdir}/gthumb/*/*.{la,a}
 
 %if %mdkversion < 200900
 %post
@@ -100,7 +100,7 @@ rm -rf $RPM_BUILD_ROOT%{_libdir}/gthumb/*/*.{la,a}
 %endif
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %files -f %{name}-%{api}.lang
 %defattr(-,root,root)
