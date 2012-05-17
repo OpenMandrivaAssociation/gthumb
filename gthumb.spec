@@ -1,6 +1,3 @@
-%define api		2.0
-%define abi		2.12
-
 Summary:	An image viewer and browser for GNOME
 Name:		gthumb
 Version:	2.14.1
@@ -14,19 +11,19 @@ BuildRequires: flex
 BuildRequires: bison
 BuildRequires: intltool
 BuildRequires: jpeg-devel
-BuildRequires: pkgconfig(clutter-gtk-0.10)
+BuildRequires: pkgconfig(champlain-gtk-0.12)
+BuildRequires: pkgconfig(clutter-gtk-1.0)
 BuildRequires: pkgconfig(exiv2)
 BuildRequires: pkgconfig(gconf-2.0) GConf2
 BuildRequires: pkgconfig(gnome-doc-utils)
 BuildRequires: pkgconfig(gnome-keyring-1)
 BuildRequires: pkgconfig(gstreamer-0.10)
-BuildRequires: pkgconfig(gtk+-2.0)
-BuildRequires: pkgconfig(libbrasero-burn)
+BuildRequires: pkgconfig(gtk+-3.0)
+BuildRequires: pkgconfig(libbrasero-burn3)
 BuildRequires: pkgconfig(libopenraw-1.0)
 BuildRequires: pkgconfig(libsoup-gnome-2.4)
 BuildRequires: pkgconfig(libtiff-4)
 BuildRequires: pkgconfig(sm)
-BuildRequires: pkgconfig(unique-1.0)
 
 %description
 gThumb lets you browse your hard disk, showing you thumbnails of image files. 
@@ -56,23 +53,19 @@ desktop background, and more.
 %make
 
 %install
-rm -rf %{buildroot}
+%makeinstall_std
 
-GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1 %makeinstall_std
-
-%find_lang %{name}-%{api} --with-gnome --all-name
+%find_lang %{name} --with-gnome --all-name
 
 # remove unpackaged files 
-rm -rf %{buildroot}%{_libdir}/gthumb/*/*.{la,a}
+find %{buildroot} -name '*.la' -delete
 
-%preun
-%preun_uninstall_gconf_schemas %{name}
-
-%files -f %{name}-%{api}.lang
+%files -f %{name}.lang
 %doc AUTHORS NEWS README COPYING
-%{_sysconfdir}/gconf/schemas/*
 %{_bindir}/*
 %{_datadir}/applications/*
+%{_datadir}/GConf/gsettings/gthumb.convert
+%{_datadir}/glib-2.0/schemas/*.xml
 %{_datadir}/gthumb
 %{_datadir}/icons/hicolor/*/apps/gthumb.*
 %dir %{_libdir}/%{name}/
@@ -82,6 +75,6 @@ rm -rf %{buildroot}%{_libdir}/gthumb/*/*.{la,a}
 
 %files devel
 %doc ChangeLog
-%{_includedir}/%{name}-%{abi}/
+%{_includedir}/%{name}-*/
 %{_libdir}/pkgconfig/gthumb-%{abi}.pc
 %{_datadir}/aclocal/gthumb.m4
