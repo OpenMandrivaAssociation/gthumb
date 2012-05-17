@@ -76,6 +76,7 @@ find %{buildroot} -name '*.la' -delete
 %dir %{_libdir}/%{name}/extensions/
 %{_libdir}/%{name}/extensions/*.extension
 %{_libdir}/%{name}/extensions/*.so
+%{_mandir}/man1/%{name}.1*
 
 %files devel
 %doc ChangeLog
