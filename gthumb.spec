@@ -80,5 +80,5 @@ find %{buildroot} -name '*.la' -delete
 %files devel
 %doc ChangeLog
 %{_includedir}/%{name}-*/
-%{_libdir}/pkgconfig/gthumb-%{abi}.pc
+%{_libdir}/pkgconfig/*.pc
 %{_datadir}/aclocal/gthumb.m4
