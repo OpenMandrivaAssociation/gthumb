@@ -17,6 +17,7 @@ BuildRequires: pkgconfig(exiv2)
 BuildRequires: pkgconfig(gconf-2.0) GConf2
 BuildRequires: pkgconfig(gnome-doc-utils)
 BuildRequires: pkgconfig(gnome-keyring-1)
+BuildRequires: pkgconfig(gsettings-desktop-schemas)
 BuildRequires: pkgconfig(gstreamer-0.10)
 BuildRequires: pkgconfig(gtk+-3.0)
 BuildRequires: pkgconfig(libbrasero-burn3)
