@@ -1,3 +1,5 @@
+%define _disable_ld_no_undefined 1
+
 Summary:	An image viewer and browser for GNOME
 Name:		gthumb
 Version:	3.1.2
