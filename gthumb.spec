@@ -3,8 +3,8 @@
 
 Summary:	An image viewer and browser for GNOME
 Name:		gthumb
-Version:	3.1.2
-Release:	8
+Version:	3.3.2
+Release:	1
 License:	GPLv2+
 Group:		Graphics
 Url:		http://gthumb.sourceforge.net/
@@ -17,15 +17,13 @@ BuildRequires:	jpeg-devel
 BuildRequires:	pkgconfig(champlain-gtk-0.12)
 BuildRequires:	pkgconfig(clutter-gtk-1.0)
 BuildRequires:	pkgconfig(exiv2)
-BuildRequires:	pkgconfig(gconf-2.0) GConf2
 BuildRequires:	pkgconfig(gl)
 BuildRequires:	pkgconfig(gnome-doc-utils)
 BuildRequires:	pkgconfig(gnome-keyring-1)
 BuildRequires:	pkgconfig(gsettings-desktop-schemas)
-BuildRequires:	pkgconfig(gstreamer-0.10)
+BuildRequires:	pkgconfig(gstreamer-1.0)
 BuildRequires:	pkgconfig(gtk+-3.0)
 BuildRequires:	pkgconfig(ice)
-BuildRequires:	pkgconfig(libbrasero-burn3)
 BuildRequires:	pkgconfig(libopenraw-1.0)
 BuildRequires:	pkgconfig(librsvg-2.0)
 BuildRequires:	pkgconfig(libsoup-gnome-2.4)
@@ -52,10 +50,9 @@ desktop background, and more.
 %setup -q
 
 %build
-%configure2_5x \
-	--disable-scrollkeeper \
-	--disable-static \
-	--enable-libopenraw
+export CC=gcc
+export CXX=g++
+%configure LIBRAW_CFLAGS=-I/usr/include/libraw
 
 %make
 
@@ -66,6 +63,7 @@ desktop background, and more.
 %files -f %{name}.lang
 %doc AUTHORS NEWS README COPYING
 %{_bindir}/*
+%{_datadir}/appdata/gthumb.appdata.xml
 %{_datadir}/applications/*
 %{_datadir}/GConf/gsettings/gthumb.convert
 %{_datadir}/glib-2.0/schemas/*.xml
