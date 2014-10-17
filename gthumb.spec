@@ -13,6 +13,7 @@ Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/gthumb/%{url_ver}/%{name}-%{versi
 BuildRequires:	flex
 BuildRequires:	bison
 BuildRequires:	intltool
+BuildRequires:  itstool
 BuildRequires:	jpeg-devel
 BuildRequires:	pkgconfig(champlain-gtk-0.12)
 BuildRequires:	pkgconfig(clutter-gtk-1.0)
