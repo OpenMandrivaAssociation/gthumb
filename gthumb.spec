@@ -1,14 +1,15 @@
 %define _disable_ld_no_undefined 1
 %define url_ver %(echo %{version}|cut -d. -f1,2)
+%define _disable_rebuild_configure 1
 
 Summary:	An image viewer and browser for GNOME
 Name:		gthumb
-Version:	3.3.2
-Release:	4
+Version:	3.4.1
+Release:	1
 License:	GPLv2+
 Group:		Graphics
 Url:		http://gthumb.sourceforge.net/
-Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/gthumb/%{url_ver}/%{name}-%{version}.tar.xz
+Source0:	http://download.gnome.org/sources/gthumb/%{url_ver}/%{name}-%{version}.tar.xz
 
 BuildRequires:	flex
 BuildRequires:	bison
@@ -69,7 +70,7 @@ export CXX=g++
 %{_datadir}/GConf/gsettings/gthumb.convert
 %{_datadir}/glib-2.0/schemas/*.xml
 %{_datadir}/gthumb
-%{_datadir}/icons/hicolor/*/apps/gthumb.*
+%{_datadir}/icons/hicolor/*/apps/gthumb*.*
 %dir %{_libdir}/%{name}/
 %dir %{_libdir}/%{name}/extensions/
 %{_libdir}/%{name}/extensions/*.extension
