@@ -13,24 +13,37 @@ Source0:	http://download.gnome.org/sources/gthumb/%{url_ver}/%{name}-%{version}.
 
 BuildRequires:	flex
 BuildRequires:	bison
-BuildRequires:	intltool
-BuildRequires:  itstool
-BuildRequires:	jpeg-devel
-BuildRequires:	pkgconfig(champlain-gtk-0.12)
-BuildRequires:	pkgconfig(clutter-gtk-1.0)
-BuildRequires:	pkgconfig(exiv2)
-BuildRequires:	pkgconfig(gl)
-BuildRequires:	pkgconfig(gnome-doc-utils)
-BuildRequires:	pkgconfig(gnome-keyring-1)
+BuildRequires:	pkgconfig(champlain-0.12) >= 0.12.0
+BuildRequires:	pkgconfig(champlain-gtk-0.12) >= 0.12.0
+BuildRequires:	pkgconfig(clutter-1.0) >= 1.0.0
+BuildRequires:	pkgconfig(clutter-gtk-1.0) >= 1.0.0
+BuildRequires:	pkgconfig(exiv2) >= 0.21
+BuildRequires:	pkgconfig(gio-unix-2.0)
+BuildRequires:	pkgconfig(glib-2.0) >= 2.32.0
+BuildRequires:	pkgconfig(gmodule-2.0)
+BuildRequires:	pkgconfig(gnome-keyring-1) >= 3.2.0
 BuildRequires:	pkgconfig(gsettings-desktop-schemas)
-BuildRequires:	pkgconfig(gstreamer-1.0)
-BuildRequires:	pkgconfig(gtk+-3.0)
+BuildRequires:	pkgconfig(gstreamer-1.0) >= 1.0.0
+BuildRequires:	pkgconfig(gstreamer-plugins-base-1.0) >= 1.0.0
+BuildRequires:	pkgconfig(gthread-2.0)
+BuildRequires:	pkgconfig(gtk+-3.0) >= 3.4.0
 BuildRequires:	pkgconfig(ice)
-BuildRequires:	pkgconfig(libopenraw-1.0)
-BuildRequires:	pkgconfig(librsvg-2.0)
-BuildRequires:	pkgconfig(libsoup-gnome-2.4)
+BuildRequires:	pkgconfig(libbrasero-burn3) >= 3.2.0
+BuildRequires:	pkgconfig(libpng)
+BuildRequires:	pkgconfig(libraw) >= 0.14
+BuildRequires:	pkgconfig(librsvg-2.0) >= 2.34.0
+BuildRequires:	pkgconfig(libsoup-2.4) >= 2.36
+BuildRequires:	pkgconfig(libsoup-gnome-2.4) >= 2.36
+BuildRequires:	pkgconfig(libwebp) >= 0.2.0
+BuildRequires:	pkgconfig(sm) >= 1.0.0
+BuildRequires:	pkgconfig(webkit2gtk-4.0) >= 1.10.0
+BuildRequires:	pkgconfig(zlib)
+BuildRequires:	yelp-tools
+BuildRequires:	pkgconfig(libjpeg)
+BuildRequires:	libsecret-devel
 BuildRequires:	pkgconfig(libtiff-4)
-BuildRequires:	pkgconfig(sm)
+BuildRequires:	itstool
+BuildRequires:	intltool >= 0.35.0
 
 %description
 gThumb lets you browse your hard disk, showing you thumbnails of image files. 
