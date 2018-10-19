@@ -28,7 +28,6 @@ BuildRequires:	pkgconfig(gstreamer-plugins-base-1.0) >= 1.0.0
 BuildRequires:	pkgconfig(gthread-2.0)
 BuildRequires:	pkgconfig(gtk+-3.0) >= 3.4.0
 BuildRequires:	pkgconfig(ice)
-BuildRequires:	pkgconfig(libbrasero-burn3) >= 3.2.0
 BuildRequires:	pkgconfig(libpng)
 BuildRequires:	pkgconfig(libraw) >= 0.14
 BuildRequires:	pkgconfig(librsvg-2.0) >= 2.34.0
@@ -40,7 +39,7 @@ BuildRequires:	pkgconfig(webkit2gtk-4.0) >= 1.10.0
 BuildRequires:	pkgconfig(zlib)
 BuildRequires:	yelp-tools
 BuildRequires:	pkgconfig(libjpeg)
-BuildRequires:	libsecret-devel
+BuildRequires:	pkgconfig(libsecret-1)
 BuildRequires:	pkgconfig(libtiff-4)
 BuildRequires:	itstool
 BuildRequires:	intltool >= 0.35.0
