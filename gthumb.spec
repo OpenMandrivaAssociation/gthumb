@@ -64,9 +64,9 @@ desktop background, and more.
 %setup -q
 
 %build
-export CC=gcc
-export CXX=g++
-%configure LIBRAW_CFLAGS=-I/usr/include/libraw
+#export CC=gcc
+#export CXX=g++
+%configure
 
 %make
 
