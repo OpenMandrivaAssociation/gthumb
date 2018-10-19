@@ -77,9 +77,9 @@ desktop background, and more.
 %files -f %{name}.lang
 %doc AUTHORS NEWS README COPYING
 %{_bindir}/*
-%{_datadir}/appdata/gthumb.appdata.xml
+%{_datadir}/appdata/org.gnome.gThumb.appdata.xml
 %{_datadir}/applications/*
-%{_datadir}/GConf/gsettings/gthumb.convert
+#{_datadir}/GConf/gsettings/gthumb.convert
 %{_datadir}/glib-2.0/schemas/*.xml
 %{_datadir}/gthumb
 %{_datadir}/icons/hicolor/*/apps/gthumb*.*
