@@ -1,6 +1,2 @@
-removed_sources:
-  gthumb-3.1.2.tar.xz: 0e355eca0fecfecbd829243c1d2f2ef0798b35d0
-  gthumb-3.3.2.tar.xz: 24b2638fa3e94651e2ba2a84381eb5bdb0166cf2
-  gthumb-3.4.1.tar.xz: 2a460f6682db473e852188da632d7d2830b8a018
 sources:
-  gthumb-3.6.2.tar.xz: 578e3757d8af0daad8df66b439527cba69e4dab9
+  gthumb-3.7.1.tar.xz: b0e254504de7d9b086f2c7ac347e30df6d3ed0e6
