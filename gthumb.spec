@@ -4,8 +4,8 @@
 
 Summary:	An image viewer and browser for GNOME
 Name:		gthumb
-Version:	3.6.2
-Release:	2
+Version:	3.7.1
+Release:	1
 License:	GPLv2+
 Group:		Graphics
 Url:		http://gthumb.sourceforge.net/
@@ -13,6 +13,7 @@ Source0:	http://download.gnome.org/sources/gthumb/%{url_ver}/%{name}-%{version}.
 
 BuildRequires:	flex
 BuildRequires:	bison
+BuildRequires:  meson
 BuildRequires:	pkgconfig(champlain-0.12) >= 0.12.0
 BuildRequires:	pkgconfig(champlain-gtk-0.12) >= 0.12.0
 BuildRequires:	pkgconfig(clutter-1.0) >= 1.0.0
@@ -64,14 +65,12 @@ desktop background, and more.
 %setup -q
 
 %build
-#export CC=gcc
-#export CXX=g++
-%configure
-
-%make
+%meson
+%meson_build
 
 %install
-%makeinstall_std
+%meson_install
+
 %find_lang %{name} --with-gnome --all-name
 
 %files -f %{name}.lang
