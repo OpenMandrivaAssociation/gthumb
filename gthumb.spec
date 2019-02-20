@@ -5,11 +5,12 @@
 Summary:	An image viewer and browser for GNOME
 Name:		gthumb
 Version:	3.6.2
-Release:	2
+Release:	3
 License:	GPLv2+
 Group:		Graphics
 Url:		http://gthumb.sourceforge.net/
 Source0:	http://download.gnome.org/sources/gthumb/%{url_ver}/%{name}-%{version}.tar.xz
+Patch0: gthumb-3.6.2-exiv2-0.27.patch
 
 BuildRequires:	flex
 BuildRequires:	bison
@@ -62,16 +63,16 @@ desktop background, and more.
 
 %prep
 %setup -q
+%autopatch -p1
 
 %build
-#export CC=gcc
-#export CXX=g++
+
 %configure
 
-%make
+%make_build
 
 %install
-%makeinstall_std
+%make_install
 %find_lang %{name} --with-gnome --all-name
 
 %files -f %{name}.lang
