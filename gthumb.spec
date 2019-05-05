@@ -89,8 +89,8 @@ desktop background, and more.
 %{_mandir}/man1/%{name}.1*
 
 %files devel
-%doc ChangeLog
-%{_includedir}/%{name}-*/
+#doc ChangeLog
+#{_includedir}/%{name}-*/
 %{_libdir}/pkgconfig/*.pc
 %{_datadir}/aclocal/gthumb.m4
 
