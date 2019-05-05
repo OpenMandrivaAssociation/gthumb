@@ -10,6 +10,7 @@ License:	GPLv2+
 Group:		Graphics
 Url:		http://gthumb.sourceforge.net/
 Source0:	http://download.gnome.org/sources/gthumb/%{url_ver}/%{name}-%{version}.tar.xz
+Patch0: gthumb-3.6.2-exiv2-0.27.patch
 
 BuildRequires:	flex
 BuildRequires:	bison
@@ -34,6 +35,7 @@ BuildRequires:	pkgconfig(libraw) >= 0.14
 BuildRequires:	pkgconfig(librsvg-2.0) >= 2.34.0
 BuildRequires:	pkgconfig(libsoup-2.4) >= 2.36
 BuildRequires:	pkgconfig(libsoup-gnome-2.4) >= 2.36
+BuildRequires:  pkgconfig(libssh)
 BuildRequires:	pkgconfig(libwebp) >= 0.2.0
 BuildRequires:	pkgconfig(sm) >= 1.0.0
 BuildRequires:	pkgconfig(webkit2gtk-4.0) >= 1.10.0
@@ -63,6 +65,7 @@ desktop background, and more.
 
 %prep
 %setup -q
+%autopatch -p1
 
 %build
 %meson
