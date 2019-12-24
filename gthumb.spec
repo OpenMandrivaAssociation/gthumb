@@ -84,6 +84,7 @@ desktop background, and more.
 %{_datadir}/glib-2.0/schemas/*.xml
 %{_datadir}/gthumb
 %{_datadir}/icons/hicolor/*/apps/gthumb*.*
+%{_iconsdir}/hicolor/*/apps/*
 %dir %{_libdir}/%{name}/
 %dir %{_libdir}/%{name}/extensions/
 %{_libdir}/%{name}/extensions/*.extension
