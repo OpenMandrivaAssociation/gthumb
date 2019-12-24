@@ -4,13 +4,12 @@
 
 Summary:	An image viewer and browser for GNOME
 Name:		gthumb
-Version:	3.8.2
+Version:	3.8.3
 Release:	1
 License:	GPLv2+
 Group:		Graphics
 Url:		http://gthumb.sourceforge.net/
 Source0:	http://download.gnome.org/sources/gthumb/%{url_ver}/%{name}-%{version}.tar.xz
-#Patch0: gthumb-3.6.2-exiv2-0.27.patch
 
 BuildRequires:	flex
 BuildRequires:	bison
