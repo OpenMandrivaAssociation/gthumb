@@ -76,14 +76,14 @@ desktop background, and more.
 %find_lang %{name} --with-gnome --all-name
 
 %files -f %{name}.lang
-%doc AUTHORS NEWS README COPYING
+%doc AUTHORS NEWS README.md COPYING
 %{_bindir}/*
 %{_datadir}/metainfo/org.gnome.gThumb.appdata.xml
 %{_datadir}/applications/*
 #{_datadir}/GConf/gsettings/gthumb.convert
 %{_datadir}/glib-2.0/schemas/*.xml
 %{_datadir}/gthumb
-%{_datadir}/icons/hicolor/*/apps/gthumb*.*
+#{_datadir}/icons/hicolor/*/apps/gthumb*.*
 %{_iconsdir}/hicolor/*/apps/*
 %dir %{_libdir}/%{name}/
 %dir %{_libdir}/%{name}/extensions/
