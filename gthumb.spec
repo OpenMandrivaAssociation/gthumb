@@ -5,7 +5,7 @@
 Summary:	An image viewer and browser for GNOME
 Name:		gthumb
 Version:	3.12.0
-Release:	1
+Release:	2
 License:	GPLv2+
 Group:		Graphics
 Url:		http://gthumb.sourceforge.net/
@@ -89,11 +89,10 @@ desktop background, and more.
 %dir %{_libdir}/%{name}/extensions/
 %{_libdir}/%{name}/extensions/*.extension
 %{_libdir}/%{name}/extensions/*.so
-%{_mandir}/man1/%{name}.1*
+%doc %{_mandir}/man1/%{name}.1*
 
 %files devel
 #doc ChangeLog
 %{_includedir}/%{name}/*
 %{_libdir}/pkgconfig/*.pc
 %{_datadir}/aclocal/gthumb.m4
-
