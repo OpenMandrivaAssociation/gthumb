@@ -4,8 +4,8 @@
 
 Summary:	An image viewer and browser for GNOME
 Name:		gthumb
-Version:	3.12.0
-Release:	2
+Version:	3.12.2
+Release:	1
 License:	GPLv2+
 Group:		Graphics
 Url:		http://gthumb.sourceforge.net/
@@ -80,19 +80,16 @@ desktop background, and more.
 %{_bindir}/*
 %{_datadir}/metainfo/org.gnome.gThumb.appdata.xml
 %{_datadir}/applications/*
-#{_datadir}/GConf/gsettings/gthumb.convert
 %{_datadir}/glib-2.0/schemas/*.xml
 %{_datadir}/gthumb
-#{_datadir}/icons/hicolor/*/apps/gthumb*.*
 %{_iconsdir}/hicolor/*/apps/*
 %dir %{_libdir}/%{name}/
 %dir %{_libdir}/%{name}/extensions/
 %{_libdir}/%{name}/extensions/*.extension
 %{_libdir}/%{name}/extensions/*.so
-%doc %{_mandir}/man1/%{name}.1*
+%{_mandir}/man1/%{name}.1*
 
 %files devel
-#doc ChangeLog
 %{_includedir}/%{name}/*
 %{_libdir}/pkgconfig/*.pc
 %{_datadir}/aclocal/gthumb.m4
