@@ -11,6 +11,8 @@ Group:		Graphics
 Url:		http://gthumb.sourceforge.net/
 Source0:	http://download.gnome.org/sources/gthumb/%{url_ver}/%{name}-%{version}.tar.xz
 
+Patch0: https://gitlab.gnome.org/GNOME/gthumb/-/commit/da0d3f22a5c3a141211d943e7d963d14090011ec.patch
+
 BuildRequires:	flex
 BuildRequires:	bison
 BuildRequires:  meson
