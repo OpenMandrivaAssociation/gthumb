@@ -1,0 +1,260 @@
+diff -up gthumb-3.12.2/extensions/exiv2_tools/exiv2-utils.cpp.omv~ gthumb-3.12.2/extensions/exiv2_tools/exiv2-utils.cpp
+--- gthumb-3.12.2/extensions/exiv2_tools/exiv2-utils.cpp.omv~	2023-05-18 05:05:46.630049238 +0200
++++ gthumb-3.12.2/extensions/exiv2_tools/exiv2-utils.cpp	2023-05-18 05:17:51.441985903 +0200
+@@ -740,7 +740,7 @@ get_exif_default_category (const Exiv2::
+ 
+ 
+ static void
+-exiv2_read_metadata (Exiv2::Image::AutoPtr  image,
++exiv2_read_metadata (Exiv2::Image::UniquePtr  image,
+ 		     GFileInfo             *info,
+ 		     gboolean               update_general_attributes)
+ {
+@@ -875,7 +875,7 @@ exiv2_read_metadata_from_file (GFile
+ 			return FALSE;
+ 		}
+ 
+-		Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(path);
++		Exiv2::Image::UniquePtr image = Exiv2::ImageFactory::open(path);
+ 		g_free (path);
+ 
+ 		if (image.get() == 0) {
+@@ -885,9 +885,9 @@ exiv2_read_metadata_from_file (GFile
+ 		}
+ 		// Set the log level to only show errors (and suppress warnings, informational and debug messages)
+ 		Exiv2::LogMsg::setLevel(Exiv2::LogMsg::error);
+-		exiv2_read_metadata (image, info, update_general_attributes);
++		exiv2_read_metadata (std::move(image), info, update_general_attributes);
+ 	}
+-	catch (Exiv2::AnyError& e) {
++	catch (Exiv2::Error& e) {
+ 		if (error != NULL)
+ 			*error = g_error_new_literal (G_IO_ERROR, G_IO_ERROR_FAILED, e.what());
+ 		return FALSE;
+@@ -906,7 +906,7 @@ exiv2_read_metadata_from_buffer (void
+ 				 GError    **error)
+ {
+ 	try {
+-		Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open ((Exiv2::byte*) buffer, buffer_size);
++		Exiv2::Image::UniquePtr image = Exiv2::ImageFactory::open ((Exiv2::byte*) buffer, buffer_size);
+ 
+ 		if (image.get() == 0) {
+ 			if (error != NULL)
+@@ -914,9 +914,9 @@ exiv2_read_metadata_from_buffer (void
+ 			return FALSE;
+ 		}
+ 
+-		exiv2_read_metadata (image, info, update_general_attributes);
++		exiv2_read_metadata (std::move(image), info, update_general_attributes);
+ 	}
+-	catch (Exiv2::AnyError& e) {
++	catch (Exiv2::Error& e) {
+ 		if (error != NULL)
+ 			*error = g_error_new_literal (G_IO_ERROR, G_IO_ERROR_FAILED, e.what());
+ 		return FALSE;
+@@ -965,7 +965,7 @@ exiv2_read_sidecar (GFile     *file,
+ 		g_free (path);
+ 
+ 		std::string xmpPacket;
+-		xmpPacket.assign(reinterpret_cast<char*>(buf.pData_), buf.size_);
++		xmpPacket.assign(reinterpret_cast<char*>(buf.data()), buf.size());
+ 		Exiv2::XmpData xmpData;
+ 
+ 		if (0 != Exiv2::XmpParser::decode(xmpData, xmpPacket))
+@@ -1011,7 +1011,7 @@ exiv2_read_sidecar (GFile     *file,
+ 
+ 		set_attributes_from_tagsets (info, update_general_attributes);
+ 	}
+-	catch (Exiv2::AnyError& e) {
++	catch (Exiv2::Error& e) {
+ 		std::cerr << "Caught Exiv2 exception '" << e << "'\n";
+ 		return FALSE;
+ 	}
+@@ -1111,7 +1111,7 @@ dump_exif_data (Exiv2::ExifData &exifDat
+ 
+ 
+ static Exiv2::DataBuf
+-exiv2_write_metadata_private (Exiv2::Image::AutoPtr  image,
++exiv2_write_metadata_private (Exiv2::Image::UniquePtr  image,
+ 			      GFileInfo             *info,
+ 			      GthImage              *image_data)
+ {
+@@ -1148,13 +1148,13 @@ exiv2_write_metadata_private (Exiv2::Ima
+ 			const char *value_type = gth_main_get_metadata_type (metadatum, attributes[i]);
+ 
+ 			if ((raw_value != NULL) && (strcmp (raw_value, "") != 0) && (value_type != NULL)) {
+-				Exiv2::Value::AutoPtr value = Exiv2::Value::create (Exiv2::TypeInfo::typeId (value_type));
++				Exiv2::Value::UniquePtr value = Exiv2::Value::create (Exiv2::TypeInfo::typeId (value_type));
+ 				value->read (raw_value);
+ 				Exiv2::ExifKey exif_key(key);
+ 				ed.add (exif_key, value.get());
+ 			}
+ 		}
+-		catch (Exiv2::AnyError& e) {
++		catch (Exiv2::Error& e) {
+ 			/* we don't care about invalid key errors */
+ 			g_warning ("%s", e.what());
+ 		}
+@@ -1270,7 +1270,7 @@ exiv2_write_metadata_private (Exiv2::Ima
+ 			value_type = gth_main_get_metadata_type (metadatum, attributes[i]);
+ 			if (value_type != NULL) {
+ 				/* See the exif data code above for an explanation. */
+-				Exiv2::Value::AutoPtr value = Exiv2::Value::create (Exiv2::TypeInfo::typeId (value_type));
++				Exiv2::Value::UniquePtr value = Exiv2::Value::create (Exiv2::TypeInfo::typeId (value_type));
+ 				Exiv2::IptcKey iptc_key(key);
+ 
+ 				const char *raw_value;
+@@ -1296,7 +1296,7 @@ exiv2_write_metadata_private (Exiv2::Ima
+ 				}
+ 			}
+ 		}
+-		catch (Exiv2::AnyError& e) {
++		catch (Exiv2::Error& e) {
+ 			/* we don't care about invalid key errors */
+ 			g_warning ("%s", e.what());
+ 		}
+@@ -1320,7 +1320,7 @@ exiv2_write_metadata_private (Exiv2::Ima
+ 			value_type = gth_main_get_metadata_type (metadatum, attributes[i]);
+ 			if (value_type != NULL) {
+ 				/* See the exif data code above for an explanation. */
+-				Exiv2::Value::AutoPtr value = Exiv2::Value::create (Exiv2::TypeInfo::typeId (value_type));
++				Exiv2::Value::UniquePtr value = Exiv2::Value::create (Exiv2::TypeInfo::typeId (value_type));
+ 				Exiv2::XmpKey xmp_key(key);
+ 
+ 				const char *raw_value;
+@@ -1346,7 +1346,7 @@ exiv2_write_metadata_private (Exiv2::Ima
+ 				}
+ 			}
+ 		}
+-		catch (Exiv2::AnyError& e) {
++		catch (Exiv2::Error& e) {
+ 			/* we don't care about invalid key errors */
+ 			g_warning ("%s", e.what());
+ 		}
+@@ -1362,7 +1362,7 @@ exiv2_write_metadata_private (Exiv2::Ima
+ 		image->setXmpData(xd);
+ 		image->writeMetadata();
+ 	}
+-	catch (Exiv2::AnyError& e) {
++	catch (Exiv2::Error& e) {
+ 		g_warning ("%s", e.what());
+ 	}
+ 
+@@ -1389,16 +1389,16 @@ exiv2_write_metadata (GthImageSaveData *
+ {
+ 	if (exiv2_supports_writes (data->mime_type) && (data->file_data != NULL)) {
+ 		try {
+-			Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open ((Exiv2::byte*) data->buffer, data->buffer_size);
++			Exiv2::Image::UniquePtr image = Exiv2::ImageFactory::open ((Exiv2::byte*) data->buffer, data->buffer_size);
+ 			g_assert (image.get() != 0);
+ 
+-			Exiv2::DataBuf buf = exiv2_write_metadata_private (image, data->file_data->info, data->image);
++			Exiv2::DataBuf buf = exiv2_write_metadata_private (std::move(image), data->file_data->info, data->image);
+ 
+ 			g_free (data->buffer);
+-			data->buffer = g_memdup (buf.pData_, buf.size_);
+-			data->buffer_size = buf.size_;
++			data->buffer = g_memdup (buf.c_data(), buf.size());
++			data->buffer_size = buf.size();
+ 		}
+-		catch (Exiv2::AnyError& e) {
++		catch (Exiv2::Error& e) {
+ 			if (data->error != NULL)
+ 				*data->error = g_error_new_literal (G_IO_ERROR, G_IO_ERROR_FAILED, e.what());
+ 			g_warning ("%s\n", e.what());
+@@ -1419,16 +1419,16 @@ exiv2_write_metadata_to_buffer (void
+ 				GError    **error)
+ {
+ 	try {
+-		Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open ((Exiv2::byte*) *buffer, *buffer_size);
++		Exiv2::Image::UniquePtr image = Exiv2::ImageFactory::open ((Exiv2::byte*) *buffer, *buffer_size);
+ 		g_assert (image.get() != 0);
+ 
+-		Exiv2::DataBuf buf = exiv2_write_metadata_private (image, info, image_data);
++		Exiv2::DataBuf buf = exiv2_write_metadata_private (std::move(image), info, image_data);
+ 
+ 		g_free (*buffer);
+-		*buffer = g_memdup (buf.pData_, buf.size_);
+-		*buffer_size = buf.size_;
++		*buffer = g_memdup (buf.c_data(), buf.size());
++		*buffer_size = buf.size();
+ 	}
+-	catch (Exiv2::AnyError& e) {
++	catch (Exiv2::Error& e) {
+ 		if (error != NULL)
+ 			*error = g_error_new_literal (G_IO_ERROR, G_IO_ERROR_FAILED, e.what());
+ 		return FALSE;
+@@ -1445,7 +1445,7 @@ exiv2_clear_metadata (void   **buffer,
+ 		      GError **error)
+ {
+ 	try {
+-		Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open ((Exiv2::byte*) *buffer, *buffer_size);
++		Exiv2::Image::UniquePtr image = Exiv2::ImageFactory::open ((Exiv2::byte*) *buffer, *buffer_size);
+ 
+ 		if (image.get() == 0) {
+ 			if (error != NULL)
+@@ -1457,7 +1457,7 @@ exiv2_clear_metadata (void   **buffer,
+ 			image->clearMetadata();
+ 			image->writeMetadata();
+ 		}
+-		catch (Exiv2::AnyError& e) {
++		catch (Exiv2::Error& e) {
+ 			g_warning ("%s", e.what());
+ 		}
+ 
+@@ -1466,10 +1466,10 @@ exiv2_clear_metadata (void   **buffer,
+ 		Exiv2::DataBuf buf = io.read(io.size());
+ 
+ 		g_free (*buffer);
+-		*buffer = g_memdup (buf.pData_, buf.size_);
+-		*buffer_size = buf.size_;
++		*buffer = g_memdup (buf.c_data(), buf.size());
++		*buffer_size = buf.size();
+ 	}
+-	catch (Exiv2::AnyError& e) {
++	catch (Exiv2::Error& e) {
+ 		if (error != NULL)
+ 			*error = g_error_new_literal (G_IO_ERROR, G_IO_ERROR_FAILED, e.what());
+ 		return FALSE;
+@@ -1502,26 +1502,26 @@ exiv2_generate_thumbnail (const char *ur
+ 		if (path == NULL)
+ 			return NULL;
+ 
+-		Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open (path);
++		Exiv2::Image::UniquePtr image = Exiv2::ImageFactory::open (path);
+ 		image->readMetadata ();
+ 		Exiv2::ExifThumbC exifThumb (image->exifData ());
+ 		Exiv2::DataBuf thumb = exifThumb.copy ();
+ 
+ 		g_free (path);
+ 
+-		if (thumb.pData_ == NULL)
++		if (thumb.c_data() == NULL)
+ 			return NULL;
+ 
+ 		Exiv2::ExifData &ed = image->exifData();
+ 
+-		long orientation = (ed["Exif.Image.Orientation"].count() > 0) ? ed["Exif.Image.Orientation"].toLong() : 1;
+-		long image_width = (ed["Exif.Photo.PixelXDimension"].count() > 0) ? ed["Exif.Photo.PixelXDimension"].toLong() : -1;
+-		long image_height = (ed["Exif.Photo.PixelYDimension"].count() > 0) ? ed["Exif.Photo.PixelYDimension"].toLong() : -1;
++		long orientation = (ed["Exif.Image.Orientation"].count() > 0) ? ed["Exif.Image.Orientation"].toUint32() : 1;
++		long image_width = (ed["Exif.Photo.PixelXDimension"].count() > 0) ? ed["Exif.Photo.PixelXDimension"].toInt64() : -1;
++		long image_height = (ed["Exif.Photo.PixelYDimension"].count() > 0) ? ed["Exif.Photo.PixelYDimension"].toInt64() : -1;
+ 
+ 		if ((orientation != 1) || (image_width <= 0) || (image_height <= 0))
+ 			return NULL;
+ 
+-		GInputStream *stream = g_memory_input_stream_new_from_data (thumb.pData_, thumb.size_, NULL);
++		GInputStream *stream = g_memory_input_stream_new_from_data (thumb.c_data(), thumb.size(), NULL);
+ 		pixbuf = gdk_pixbuf_new_from_stream (stream, NULL, NULL);
+ 		g_object_unref (stream);
+ 
+@@ -1575,7 +1575,7 @@ exiv2_generate_thumbnail (const char *ur
+ 		gdk_pixbuf_set_option (pixbuf, "orientation", orientation_s);
+ 		g_free (orientation_s);
+ 	}
+-	catch (Exiv2::AnyError& e) {
++	catch (Exiv2::Error& e) {
+ 	}
+ 
+ 	return pixbuf;
