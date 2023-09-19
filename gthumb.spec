@@ -80,6 +80,7 @@ desktop background, and more.
 %files -f %{name}.lang
 %doc AUTHORS NEWS README.md COPYING
 %{_bindir}/*
+%{_libexecdir}/gthumb/video-thumbnailer
 #{_datadir}/metainfo/org.gnome.gThumb.appdata.xml
 %{_datadir}/applications/*
 %{_datadir}/glib-2.0/schemas/*.xml
