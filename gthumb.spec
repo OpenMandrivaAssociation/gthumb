@@ -5,7 +5,7 @@
 Summary:	An image viewer and browser for GNOME
 Name:		gthumb
 Version:	3.12.6
-Release:	2
+Release:	3
 License:	GPLv2+
 Group:		Graphics
 Url:		https://gthumb.sourceforge.net/
