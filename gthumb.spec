@@ -5,7 +5,7 @@
 Summary:	An image viewer and browser for GNOME
 Name:		gthumb
 Version:	3.12.7
-Release:	2
+Release:	3
 License:	GPLv2+
 Group:		Graphics
 Url:		https://gthumb.sourceforge.net/
@@ -63,8 +63,7 @@ images, organize images in catalogs, print images, view slideshows, set your
 desktop background, and more. 
 
 %prep
-%setup -q
-%autopatch -p1
+%autosetup -p1
 
 %build
 # Disable webkit until app is ported to webkit 4.1
