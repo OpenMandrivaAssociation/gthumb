@@ -66,8 +66,7 @@ desktop background, and more.
 %autosetup -p1
 
 %build
-# Disable webkit until app is ported to webkit 4.1
-%meson -Dwebservices=false
+%meson
 %meson_build
 
 %install
