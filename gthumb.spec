@@ -4,7 +4,7 @@
 
 Summary:	An image viewer and browser for GNOME
 Name:		gthumb
-Version:	3.12.8
+Version:	3.12.8.1
 Release:	1
 License:	GPLv2+
 Group:		Graphics
@@ -66,8 +66,8 @@ desktop background, and more.
 %autosetup -p1
 
 %build
-export CC=gcc
-export CXX=g++
+#export CC=gcc
+#export CXX=g++
 %meson
 %meson_build
 
