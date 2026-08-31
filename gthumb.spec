@@ -49,6 +49,7 @@ BuildRequires:	pkgconfig(libjpeg)
 BuildRequires:	pkgconfig(libsecret-1)
 BuildRequires:	pkgconfig(libtiff-4)
 BuildRequires:	pkgconfig(vapigen)
+BuildRequires:  librsvg-vala-devel
 BuildRequires:	itstool
 BuildRequires:	intltool >= 0.35.0
 
