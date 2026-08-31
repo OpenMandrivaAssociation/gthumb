@@ -4,8 +4,8 @@
 
 Summary:	An image viewer and browser for GNOME
 Name:		gthumb
-Version:	3.12.10
-Release:	2
+Version:	4.0.rc
+Release:	1
 License:	GPLv2+
 Group:		Graphics
 Url:		https://gthumb.sourceforge.net/
@@ -18,6 +18,7 @@ BuildRequires:	pkgconfig(champlain-0.12) >= 0.12.0
 BuildRequires:	pkgconfig(champlain-gtk-0.12) >= 0.12.0
 BuildRequires:	pkgconfig(clutter-1.0) >= 1.0.0
 BuildRequires:	pkgconfig(clutter-gtk-1.0) >= 1.0.0
+BuildRequires:	pkgconfig(colord)
 BuildRequires:	pkgconfig(exiv2) >= 0.21
 BuildRequires:	pkgconfig(gio-unix-2.0)
 BuildRequires:	pkgconfig(glib-2.0) >= 2.32.0
@@ -27,9 +28,13 @@ BuildRequires:	pkgconfig(gsettings-desktop-schemas)
 BuildRequires:	pkgconfig(gstreamer-1.0) >= 1.0.0
 BuildRequires:	pkgconfig(gstreamer-plugins-base-1.0) >= 1.0.0
 BuildRequires:	pkgconfig(gthread-2.0)
-BuildRequires:	pkgconfig(gtk+-3.0) >= 3.4.0
+BuildRequires:	pkgconfig(gtk4) >= 4.18.5
 BuildRequires:	pkgconfig(ice)
+BuildRequires:	pkgconfig(lcms2)
+BuildRequires:	pkgconfig(libadwaita-1)
+BuildRequires:	pkgconfig(libjxl)
 BuildRequires:	pkgconfig(libpng)
+BuildRequires:	pkgconfig(libportal)
 BuildRequires:	pkgconfig(libraw) >= 0.14
 BuildRequires:	pkgconfig(librsvg-2.0) >= 2.34.0
 BuildRequires:  pkgconfig(libssh)
@@ -43,6 +48,7 @@ BuildRequires:	yelp-tools
 BuildRequires:	pkgconfig(libjpeg)
 BuildRequires:	pkgconfig(libsecret-1)
 BuildRequires:	pkgconfig(libtiff-4)
+BuildRequires:	pkgconfig(vapigen)
 BuildRequires:	itstool
 BuildRequires:	intltool >= 0.35.0
 
