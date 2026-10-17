@@ -4,7 +4,7 @@
 
 Summary:	An image viewer and browser for GNOME
 Name:		gthumb
-Version:	4.0.rc
+Version:	4.0
 Release:	1
 License:	GPLv2+
 Group:		Graphics
