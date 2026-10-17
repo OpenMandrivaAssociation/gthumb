@@ -86,18 +86,13 @@ sed -i '1i#include <stdbool.h>' src/lib/util.h
 %find_lang %{name} --with-gnome --all-name
 
 %files -f %{name}.lang
-%doc AUTHORS NEWS README.md COPYING
+%doc NEWS README.md COPYING
 %{_bindir}/*
 %{_libexecdir}/gthumb/video-thumbnailer
 #{_datadir}/metainfo/org.gnome.gThumb.appdata.xml
 %{_datadir}/applications/*
 %{_datadir}/glib-2.0/schemas/*.xml
-%{_datadir}/gthumb
 %{_iconsdir}/hicolor/*/apps/*
-%dir %{_libdir}/%{name}/
-%dir %{_libdir}/%{name}/extensions/
-%{_libdir}/%{name}/extensions/*.extension
-%{_libdir}/%{name}/extensions/*.so
 %{_mandir}/man1/%{name}.1*
 
 %files devel
