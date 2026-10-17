@@ -71,6 +71,8 @@ desktop background, and more.
 
 %prep
 %autosetup -p1
+# Fix missing bool definition with Clang
+sed -i '1i#include <stdbool.h>' src/lib/util.h
 
 %build
 #export CC=gcc
