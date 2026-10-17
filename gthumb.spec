@@ -96,6 +96,3 @@ sed -i '1i#include <stdbool.h>' src/lib/util.h
 %{_mandir}/man1/%{name}.1*
 
 %files devel
-%{_includedir}/%{name}/*
-%{_libdir}/pkgconfig/*.pc
-%{_datadir}/aclocal/gthumb.m4
