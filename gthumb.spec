@@ -59,16 +59,6 @@ It also lets you view single files (including GIF animations), add comments to
 images, organize images in catalogs, print images, view slideshows, set your
 desktop background, and more. 
 
-%package devel
-Summary:	Header files for building %{name} extensions
-Group:		Development/C
-
-%description devel
-gThumb lets you browse your hard disk, showing you thumbnails of image files. 
-It also lets you view single files (including GIF animations), add comments to
-images, organize images in catalogs, print images, view slideshows, set your
-desktop background, and more. 
-
 %prep
 %autosetup -p1
 # Fix missing bool definition with Clang
@@ -89,10 +79,8 @@ sed -i '1i#include <stdbool.h>' src/lib/util.h
 %doc NEWS README.md COPYING
 %{_bindir}/*
 %{_libexecdir}/gthumb/video-thumbnailer
-#{_datadir}/metainfo/org.gnome.gThumb.appdata.xml
+%{_datadir}/metainfo/org.gnome.gthumb.metainfo.xml
 %{_datadir}/applications/*
 %{_datadir}/glib-2.0/schemas/*.xml
 %{_iconsdir}/hicolor/*/apps/*
 %{_mandir}/man1/%{name}.1*
-
-%files devel
