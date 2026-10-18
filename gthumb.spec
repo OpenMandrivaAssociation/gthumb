@@ -4,8 +4,8 @@
 
 Summary:	An image viewer and browser for GNOME
 Name:		gthumb
-Version:	3.12.10
-Release:	2
+Version:	4.0
+Release:	1
 License:	GPLv2+
 Group:		Graphics
 Url:		https://gthumb.sourceforge.net/
@@ -18,6 +18,7 @@ BuildRequires:	pkgconfig(champlain-0.12) >= 0.12.0
 BuildRequires:	pkgconfig(champlain-gtk-0.12) >= 0.12.0
 BuildRequires:	pkgconfig(clutter-1.0) >= 1.0.0
 BuildRequires:	pkgconfig(clutter-gtk-1.0) >= 1.0.0
+BuildRequires:	pkgconfig(colord)
 BuildRequires:	pkgconfig(exiv2) >= 0.21
 BuildRequires:	pkgconfig(gio-unix-2.0)
 BuildRequires:	pkgconfig(glib-2.0) >= 2.32.0
@@ -27,9 +28,13 @@ BuildRequires:	pkgconfig(gsettings-desktop-schemas)
 BuildRequires:	pkgconfig(gstreamer-1.0) >= 1.0.0
 BuildRequires:	pkgconfig(gstreamer-plugins-base-1.0) >= 1.0.0
 BuildRequires:	pkgconfig(gthread-2.0)
-BuildRequires:	pkgconfig(gtk+-3.0) >= 3.4.0
+BuildRequires:	pkgconfig(gtk4) >= 4.18.5
 BuildRequires:	pkgconfig(ice)
+BuildRequires:	pkgconfig(lcms2)
+BuildRequires:	pkgconfig(libadwaita-1)
+BuildRequires:	pkgconfig(libjxl)
 BuildRequires:	pkgconfig(libpng)
+BuildRequires:	pkgconfig(libportal)
 BuildRequires:	pkgconfig(libraw) >= 0.14
 BuildRequires:	pkgconfig(librsvg-2.0) >= 2.34.0
 BuildRequires:  pkgconfig(libssh)
@@ -43,6 +48,8 @@ BuildRequires:	yelp-tools
 BuildRequires:	pkgconfig(libjpeg)
 BuildRequires:	pkgconfig(libsecret-1)
 BuildRequires:	pkgconfig(libtiff-4)
+BuildRequires:	pkgconfig(vapigen)
+BuildRequires:  librsvg-vala-devel
 BuildRequires:	itstool
 BuildRequires:	intltool >= 0.35.0
 
@@ -52,18 +59,10 @@ It also lets you view single files (including GIF animations), add comments to
 images, organize images in catalogs, print images, view slideshows, set your
 desktop background, and more. 
 
-%package devel
-Summary:	Header files for building %{name} extensions
-Group:		Development/C
-
-%description devel
-gThumb lets you browse your hard disk, showing you thumbnails of image files. 
-It also lets you view single files (including GIF animations), add comments to
-images, organize images in catalogs, print images, view slideshows, set your
-desktop background, and more. 
-
 %prep
 %autosetup -p1
+# Fix missing bool definition with Clang
+sed -i '1i#include <stdbool.h>' src/lib/util.h
 
 %build
 #export CC=gcc
@@ -77,21 +76,11 @@ desktop background, and more.
 %find_lang %{name} --with-gnome --all-name
 
 %files -f %{name}.lang
-%doc AUTHORS NEWS README.md COPYING
+%doc NEWS README.md COPYING
 %{_bindir}/*
 %{_libexecdir}/gthumb/video-thumbnailer
-#{_datadir}/metainfo/org.gnome.gThumb.appdata.xml
+%{_datadir}/metainfo/org.gnome.gthumb.metainfo.xml
 %{_datadir}/applications/*
 %{_datadir}/glib-2.0/schemas/*.xml
-%{_datadir}/gthumb
 %{_iconsdir}/hicolor/*/apps/*
-%dir %{_libdir}/%{name}/
-%dir %{_libdir}/%{name}/extensions/
-%{_libdir}/%{name}/extensions/*.extension
-%{_libdir}/%{name}/extensions/*.so
 %{_mandir}/man1/%{name}.1*
-
-%files devel
-%{_includedir}/%{name}/*
-%{_libdir}/pkgconfig/*.pc
-%{_datadir}/aclocal/gthumb.m4
